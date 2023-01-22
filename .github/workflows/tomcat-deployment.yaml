@@ -43,6 +43,31 @@ jobs:
         path: ./output/*
 
     
+  deployment-dotnet-app:
+    name: Deploy dotnet Application
+    runs-on: ubuntu-latest
+    needs: build-dotnet-app
+    steps:
+
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+      - run: ls
+
+      - name: Deploy the Build to IIS
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
+        with:
+          local: 'output'                                                 
+          remote: 'C:\inetpub\wwwroot'                                               
+          host: ${{secrets.HOST}}                                  
+          user: ${{secrets.USER}}
+          password: ${{secrets.PASSWORD}}
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ssh_options: -o StrictHostKeyChecking=no
+          scp_options: -v
+
     # - name: Depoly to IIS
     #   run: |
     #     iisreset /stop
