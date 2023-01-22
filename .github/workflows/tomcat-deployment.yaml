@@ -34,7 +34,13 @@ jobs:
 
     - name: CHeck location and files
       run: |
-        ls
+        ls -lrth output
+
+    # - uses: actions/upload-artifact@v2
+    #   with:
+    #     name: my-artifact
+    #     path: ./output${{github.run_number}}
+
     
     # - name: Depoly to IIS
     #   run: |
