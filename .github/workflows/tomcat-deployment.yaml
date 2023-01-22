@@ -31,6 +31,10 @@ jobs:
     - name: Publish with dotnet
       run: |
         dotnet publish -o output
+
+    - name: CHeck location and files
+      run: |
+        ls -lrth output
     
     - name: Depoly to IIS
       run: |
