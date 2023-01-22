@@ -35,7 +35,7 @@ jobs:
     - name: Depoly
       run: |
         iisreset /stop
-        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/dotnetcore-webapp -Recurse -Force
+        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/dotnetapp-devsecops-demo -Recurse -Force
         iisreset /start
 
   #   - name: Rename
