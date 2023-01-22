@@ -31,6 +31,12 @@ jobs:
     - name: Publish with dotnet
       run: |
         dotnet publish -o output
+    
+    - name: Depoly
+      run: |
+        iisreset /stop
+        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/dotnetcore-webapp -Recurse -Force
+        iisreset /start
 
   #   - name: Rename
   #     run: sed -i "s/0.0.1-SNAPSHOT/${{github.run_number}}/g" pom.xml
