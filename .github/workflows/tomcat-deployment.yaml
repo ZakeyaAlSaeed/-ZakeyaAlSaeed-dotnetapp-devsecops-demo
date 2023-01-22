@@ -36,7 +36,8 @@ jobs:
       run: |
         ls 
 
-    - uses: actions/upload-artifact@v2
+    - name: Upload file
+      uses: actions/upload-artifact@v2
       with:
         name: my-artifact
         path: ./output/*
