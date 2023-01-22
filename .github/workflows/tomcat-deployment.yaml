@@ -58,8 +58,8 @@ jobs:
       - name: Deploy the Build to IIS
         uses: mdallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: 'output'                                                 
-          remote: 'C:\inetpub\wwwroot'                                               
+          local: 'output/*'                                                 
+          remote: 'output'                                               
           host: ${{secrets.HOST}}                                  
           user: ${{secrets.USER}}
           password: ${{secrets.PASSWORD}}
