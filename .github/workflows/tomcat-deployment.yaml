@@ -9,9 +9,9 @@ on:
 jobs:
   build-dotnet-app:
     name: Build Dotnet Application
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
+    # strategy:
+    #   matrix:
+    #     configuration: [Debug, Release]
     runs-on: windows-latest 
     steps:
     - uses: actions/checkout@v3
@@ -32,9 +32,6 @@ jobs:
       run: |
         dotnet publish -c Release -o dotnetcorewebapp .\dotnet-core-webapp
 
-    - name: Fix the permissions of mvnw command
-      run: chmod +x mvnw 
-    
   #   - name: Rename
   #     run: sed -i "s/0.0.1-SNAPSHOT/${{github.run_number}}/g" pom.xml
 
