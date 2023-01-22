@@ -32,10 +32,10 @@ jobs:
       run: |
         dotnet publish -o output
     
-    - name: Depoly
+    - name: Depoly to IIS
       run: |
         iisreset /stop
-        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/dotnetapp-devsecops-demo -Recurse -Force
+        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/output -Recurse -Force
         iisreset /start
 
   #   - name: Rename
