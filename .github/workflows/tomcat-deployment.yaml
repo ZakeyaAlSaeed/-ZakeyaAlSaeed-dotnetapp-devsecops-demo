@@ -30,7 +30,7 @@ jobs:
 
     - name: Publish with dotnet
       run: |
-        dotnet publish -c Release -o dotnetcorewebapp .\dotnet-core-webapp
+        dotnet publish -o output
 
   #   - name: Rename
   #     run: sed -i "s/0.0.1-SNAPSHOT/${{github.run_number}}/g" pom.xml
