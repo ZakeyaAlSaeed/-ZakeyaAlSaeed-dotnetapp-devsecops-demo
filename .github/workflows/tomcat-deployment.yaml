@@ -34,13 +34,13 @@ jobs:
 
     - name: CHeck location and files
       run: |
-        ls -lrth output
+        ls
     
-    - name: Depoly to IIS
-      run: |
-        iisreset /stop
-        Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/output -Recurse -Force
-        iisreset /start
+    # - name: Depoly to IIS
+    #   run: |
+    #     iisreset /stop
+    #     Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/output -Recurse -Force
+    #     iisreset /start
 
   #   - name: Rename
   #     run: sed -i "s/0.0.1-SNAPSHOT/${{github.run_number}}/g" pom.xml
