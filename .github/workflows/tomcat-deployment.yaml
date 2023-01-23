@@ -1,76 +1,76 @@
-# name: Deploying dotnet to IIS Azure Windows Server
+name: Deploying dotnet to IIS Azure Windows Server
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
-# jobs:
-#   build-dotnet-app:
-#     name: Build Dotnet Application
-#     # strategy:
-#     #   matrix:
-#     #     configuration: [Debug, Release]
-#     runs-on: ubuntu-latest 
-#     steps:
-#     - uses: actions/checkout@v3
+jobs:
+  build-dotnet-app:
+    name: Build Dotnet Application
+    # strategy:
+    #   matrix:
+    #     configuration: [Debug, Release]
+    runs-on: ubuntu-latest 
+    steps:
+    - uses: actions/checkout@v3
 
-#     - name: Setup .NET Core
-#       uses: actions/setup-dotnet@v3
-#       with:
-#         dotnet-version: 6.0.405
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.405
     
       
-#     - name: Verify .NET Version 
-#       run: dotnet --version
+    - name: Verify .NET Version 
+      run: dotnet --version
 
-#     - name: Download the Code
-#       uses: actions/checkout@v3
+    - name: Download the Code
+      uses: actions/checkout@v3
 
-#     - name: Publish with dotnet
-#       run: |
-#         dotnet publish -o output
+    - name: Publish with dotnet
+      run: |
+        dotnet publish -o output
 
-#     - name: CHeck location and files
-#       run: |
-#         ls 
+    - name: CHeck location and files
+      run: |
+        ls 
 
-#     - name: Upload file
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: my-artifact
-#         path: ./output/*
+    - name: Upload file
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./output/*
 
     
-#   deployment-dotnet-app:
-#     name: Deploy dotnet Application
-#     runs-on: ubuntu-latest
-#     needs: build-dotnet-app
-#     steps:
+  deployment-dotnet-app:
+    name: Deploy dotnet Application
+    runs-on: ubuntu-latest
+    needs: build-dotnet-app
+    steps:
 
-#       - uses: actions/checkout@v2
-#       - uses: actions/download-artifact@v2
-#         with:
-#           name: my-artifact
-#           path: ./output
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+          path: ./output
 
-#       - run: ls -lrth output
+      - run: ls -lrth output
 
-#       - name: Deploy the Build to IIS
-#         uses: mdallasanta/ssh-scp-deploy@v1.2.0
-#         with:
-#           local: 'output/*'                                                 
-#           remote: 'C:\inetpub\wwwroot\'                                               
-#           host: ${{secrets.HOST}}                                  
-#           user: ${{secrets.USER}}
-#           password: ${{secrets.PASSWORD}}
-#           pre_upload: echo "This will be executed before the upload!"
-#           post_upload: echo "This will be executed after the upload!"
-#           ssh_options: -o StrictHostKeyChecking=no
-#           scp_options: -v
+      - name: Deploy the Build to IIS
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
+        with:
+          local: 'output/*'                                                 
+          remote: 'C:\inetpub\wwwroot\'                                               
+          host: ${{secrets.HOST}}                                  
+          user: ${{secrets.USER}}
+          password: ${{secrets.PASSWORD}}
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ssh_options: -o StrictHostKeyChecking=no
+          scp_options: -v
 
-#     # - name: Depoly to IIS
+    # - name: Depoly to IIS
     #   run: |
     #     iisreset /stop
     #     Copy-Item ./dotnetapp-devsecops-demo/* C:/inetpub/wwwroot/output -Recurse -Force
